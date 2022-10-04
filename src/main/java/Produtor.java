@@ -3,22 +3,19 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 public class Produtor {
-
+    private final static String NOME_FILA = "hello";
     public static void main(String[] args) throws Exception {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        try (
-                Connection connection = connectionFactory.newConnection();
-                Channel canal = connection.createChannel();
-        ) {
-            String mensagem = "Olá";
-            String NOME_FILA = "plica";
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        factory.setUsername("mqadmin");
+        factory.setPassword("Admin123XX_");
+        try(Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel()){
 
-            //(queue, passive, durable, exclusive, autoDelete, arguments)
-            canal.queueDeclare(NOME_FILA, false, false, false, null);
-
-            // ​(exchange, routingKey, mandatory, immediate, props, byte[] body)
-            canal.basicPublish("", NOME_FILA, false, false, null, mensagem.getBytes());
-
+            channel.queueDeclare(NOME_FILA, false, false, false, null);
+            String mensagem = "Hello Guilherme!";
+            channel.basicPublish("", NOME_FILA, null, mensagem.getBytes());
+            System.out.println("Enviou: " + mensagem);
         }
     }
 }

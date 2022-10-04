@@ -5,25 +5,24 @@ import com.rabbitmq.client.DeliverCallback;
 
 
 public class Consumidor {
+    private final static String NOME_FILA = "hello";
     public static void main(String[] args) throws Exception {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("localhost");
-        Connection conexao = connectionFactory.newConnection();
-        Channel canal = conexao.createChannel();
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        factory.setUsername("mqadmin");
+        factory.setPassword("Admin123XX_");
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
 
-        String NOME_FILA = "plica"
-                + "";
-        canal.queueDeclare(NOME_FILA, false, false, false, null);
+        channel.queueDeclare(NOME_FILA, false, false, false, null);
+        System.out.println("Aguardando mensagens...");
 
-        DeliverCallback callback = (consumerTag, delivery) -> {
-            String mensagem = new String(delivery.getBody());
-            System.out.println("Eu " + consumerTag + " Recebi: " + mensagem);
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String mensagem = new String(delivery.getBody(), "UTF-8");
+            System.out.println("Recebeu: " + mensagem);
         };
 
-        // fila, noAck, callback, callback em caso de cancelamento (por exemplo, a fila foi deletada)
-        canal.basicConsume(NOME_FILA, true, callback, consumerTag -> {
-            System.out.println("Cancelaram a fila: " + NOME_FILA);
-        });
+        channel.basicConsume(NOME_FILA, true, deliverCallback, consumerTag -> { });
     }
 }
 
