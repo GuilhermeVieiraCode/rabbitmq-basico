@@ -13,9 +13,9 @@ public class Produtor {
             Channel channel = connection.createChannel()){
 
             channel.queueDeclare(NOME_FILA, false, false, false, null);
-            String mensagem = "Hello Guilherme!";
+            String mensagem = String.join("", args);
             channel.basicPublish("", NOME_FILA, null, mensagem.getBytes());
-            System.out.println("Enviou: " + mensagem);
+            System.out.println("[x] Enviou: " + mensagem);
         }
     }
 }
