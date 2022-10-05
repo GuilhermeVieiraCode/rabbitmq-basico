@@ -20,8 +20,11 @@ public class Consumidor {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(NOME_FILA, false, false, false, null);
+        boolean duravel = true;
+        channel.queueDeclare(NOME_FILA, duravel, false, false, null);
         System.out.println("Aguardando mensagens...");
+
+        channel.basicQos(1);
 
         DeliverCallback deliverCallback = (consumerTag, delivery)->{
             String mensagem = new String(delivery.getBody(), "UTF-8");
@@ -32,9 +35,10 @@ public class Consumidor {
                 throw new RuntimeException(e);
             } finally {
                 System.out.println("[x] Feito");
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             }
         };
-        boolean autoAck = true;
+        boolean autoAck = false;
         channel.basicConsume(NOME_FILA, autoAck, deliverCallback, consumerTag->{ });
     }
 }

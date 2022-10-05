@@ -51,7 +51,7 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Produtor 3">
+  <component name="RunManager" selected="Application.Consumidor">
     <configuration name="Consumidor 2" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -119,7 +119,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Produtor" />
       <module name="rabbitmq-basico" />
-      <option name="PROGRAM_PARAMETERS" value="Primeira mensagem." />
+      <option name="PROGRAM_PARAMETERS" value="Guilherme Alves Vieira." />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.gugawag.mensageria.teste.*" />
@@ -139,8 +139,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Produtor" />
         <item itemvalue="Application.Consumidor" />
+        <item itemvalue="Application.Produtor" />
       </list>
     </recent_temporary>
   </component>
@@ -166,7 +166,7 @@
       <workItem from="1571071709185" duration="3882000" />
       <workItem from="1573045278068" duration="9858000" />
       <workItem from="1573129917604" duration="2735000" />
-      <workItem from="1664924268106" duration="5791000" />
+      <workItem from="1664924268106" duration="7180000" />
     </task>
     <servers />
   </component>
